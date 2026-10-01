@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+
+{% block title %}AI Course Advisor — Mentora AI{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+
+    <!-- Header -->
+    <div class="text-center space-y-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-800">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            Powered by Gemini AI
+        </div>
+        <h1 class="font-serif text-4xl sm:text-5xl font-bold text-mentoraGreen">
+            AI Course Advisor Chat
+        </h1>
+        <p class="text-sm text-mentoraTextMuted max-w-xl mx-auto">
+            Tell me about your programming background, weekly time budget, learning goals, or preferred platforms. I'll match you with courses from our 250+ catalog.
+        </p>
+    </div>
+
+    <!-- Preset Prompt Pills -->
+    <div class="flex flex-wrap items-center justify-center gap-2 text-xs">
+        <button onclick="setPrompt('I am a complete beginner with 5 hours per week. Recommend a free starting path.')" 
+            class="px-3.5 py-2 rounded-full bg-white border border-mentoraBorder hover:border-mentoraGreen text-mentoraGreen font-medium shadow-sm transition-all">
+            💡 "Complete beginner, 5h/week, free path"
+        </button>
+        <button onclick="setPrompt('I want to build LLM chatbot applications using Python and LangChain. What courses should I take?')" 
+            class="px-3.5 py-2 rounded-full bg-white border border-mentoraBorder hover:border-mentoraGreen text-mentoraGreen font-medium shadow-sm transition-all">
+            🤖 "Build LLM Chatbots with LangChain"
+        </button>
+        <button onclick="setPrompt('I know basic Python and want to become a Machine Learning Engineer. Give me a 3-course roadmap.')" 
+            class="px-3.5 py-2 rounded-full bg-white border border-mentoraBorder hover:border-mentoraGreen text-mentoraGreen font-medium shadow-sm transition-all">
+            🚀 "Become an ML Engineer"
+        </button>
+    </div>
+
+    <!-- Chat Container -->
+    <div class="bg-white border border-mentoraBorder rounded-3xl p-6 sm:p-8 space-y-6 shadow-sm flex flex-col h-[550px] justify-between">
+        
+        <!-- Messages Scroll Area -->
+        <div id="chatMessages" class="flex-grow overflow-y-auto space-y-4 pr-2 text-sm">
+            <!-- Initial AI Welcome Message -->
+            <div class="flex items-start gap-3">
+                <div class="w-9 h-9 rounded-full bg-mentoraGreen text-white font-serif font-bold text-base flex items-center justify-center flex-shrink-0">
+                    M
+                </div>
+                <div class="bg-mentoraBadgeBg/90 border border-mentoraBorder rounded-2xl p-4 text-mentoraGreen max-w-2xl leading-relaxed">
+                    Hello! I'm your <strong>Mentora AI Advisor</strong>. 👋<br><br>
+                    Share your career goals, current experience, or budget limits and I'll generate custom recommendations from our curated database of 250+ courses!
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Box Form -->
+        <form id="advisorForm" class="pt-4 border-t border-mentoraBorder flex items-center gap-3">
+            <input type="text" id="userInput" placeholder="Ask about courses, career roadmaps, or budget limits..." required
+                class="flex-grow px-5 py-3.5 rounded-full border border-mentoraBorder text-sm focus:outline-none focus:ring-2 focus:ring-mentoraGreen/20 focus:border-mentoraGreen bg-mentoraBg/50">
+            
+            <button type="submit" id="sendBtn" 
+                class="px-6 py-3.5 bg-mentoraGreen text-white font-bold text-sm rounded-full hover:bg-mentoraGreenLight transition-all shadow-md flex items-center gap-2 flex-shrink-0">
+                <span>Ask Advisor</span>
+                <span>→</span>
+            </button>
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+    const chatMessages = document.getElementById('chatMessages');
+    const advisorForm = document.getElementById('advisorForm');
+    const userInput = document.getElementById('userInput');
+    const sendBtn = document.getElementById('sendBtn');
+    let conversationHistory = [];
+
+    function setPrompt(text) {
+        userInput.value = text;
+        userInput.focus();
+    }
+
+    function appendMessage(sender, text) {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = 'flex items-start gap-3 ' + (sender === 'user' ? 'justify-end' : '');
+        
+        if (sender === 'user') {
+            msgDiv.innerHTML = `
+                <div class="bg-mentoraGreen text-white rounded-2xl p-4 max-w-xl text-sm leading-relaxed shadow-sm">
+                    ${escapeHtml(text)}
+                </div>
+            `;
+        } else {
+            msgDiv.innerHTML = `
+                <div class="w-9 h-9 rounded-full bg-mentoraGreen text-white font-serif font-bold text-base flex items-center justify-center flex-shrink-0">
+                    M
+                </div>
+                <div class="bg-mentoraBadgeBg/90 border border-mentoraBorder rounded-2xl p-4 text-mentoraGreen max-w-2xl leading-relaxed space-y-2">
+                    ${formatAiResponse(text)}
+                </div>
+            `;
+        }
+
+        chatMessages.appendChild(msgDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function formatAiResponse(text) {
+        // Convert basic markdown formatting to HTML
+        let formatted = escapeHtml(text);
+        formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        formatted = formatted.replace(/\*(.*?)\*/g, '<em>$1</em>');
+        formatted = formatted.replace(/\n\n/g, '<br><br>');
+        formatted = formatted.replace(/\n/g, '<br>');
+        return formatted;
+    }
+
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.innerText = text;
+        return div.innerHTML;
+    }
+
+    advisorForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const text = userInput.value.trim();
+        if (!text) return;
+
+        appendMessage('user', text);
+        userInput.value = '';
+        sendBtn.disabled = true;
+        sendBtn.innerText = 'Thinking...';
+
+        // Add loading indicator
+        const loadingDiv = document.createElement('div');
+        loadingDiv.id = 'loadingIndicator';
+        loadingDiv.className = 'flex items-start gap-3';
+        loadingDiv.innerHTML = `
+            <div class="w-9 h-9 rounded-full bg-mentoraGreen text-white font-serif font-bold text-base flex items-center justify-center">M</div>
+            <div class="bg-mentoraBadgeBg/90 border border-mentoraBorder rounded-2xl p-4 text-xs font-semibold text-mentoraTextMuted animate-pulse">
+                Analyzing catalog and reasoning recommendations...
+            </div>
+        `;
+        chatMessages.appendChild(loadingDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        try {
+            const res = await fetch('/ai-advisor', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: text, history: conversationHistory })
+            });
+
+            const data = await res.json();
+            document.getElementById('loadingIndicator')?.remove();
+
+            if (data.status === 'success') {
+                appendMessage('ai', data.reply);
+                conversationHistory.push({ role: 'user', content: text });
+                conversationHistory.push({ role: 'model', content: data.reply });
+            } else {
+                appendMessage('ai', data.reply || 'Sorry, I encountered an error processing your query.');
+            }
+        } catch (err) {
+            document.getElementById('loadingIndicator')?.remove();
+            appendMessage('ai', 'Error connecting to Mentora AI Advisor server.');
+        } finally {
+            sendBtn.disabled = false;
+            sendBtn.innerHTML = '<span>Ask Advisor</span> <span>→</span>';
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Account — Mentora AI{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto px-4 py-16">
+
+    <div class="bg-white border border-mentoraBorder rounded-3xl p-8 sm:p-10 space-y-6 shadow-sm">
+        <div class="text-center space-y-2">
+            <div class="w-12 h-12 rounded-full bg-mentoraGreen text-white font-serif text-2xl font-bold flex items-center justify-center mx-auto">
+                M
+            </div>
+            <h1 class="font-serif text-3xl font-bold text-mentoraGreen">Join Mentora</h1>
+            <p class="text-xs text-mentoraTextMuted">Create a free account to track your AI learning path.</p>
+        </div>
+
+        <form action="{{ url_for('register') }}" method="POST" class="space-y-4">
+            <div>
+                <label class="block text-xs font-bold text-mentoraGreen mb-1.5">Full Name</label>
+                <input type="text" name="name" required placeholder="Alex Morgan" 
+                    class="w-full px-4 py-3 rounded-xl border border-mentoraBorder text-sm focus:outline-none focus:ring-2 focus:ring-mentoraGreen/20 focus:border-mentoraGreen">
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold text-mentoraGreen mb-1.5">Email Address</label>
+                <input type="email" name="email" required placeholder="you@example.com" 
+                    class="w-full px-4 py-3 rounded-xl border border-mentoraBorder text-sm focus:outline-none focus:ring-2 focus:ring-mentoraGreen/20 focus:border-mentoraGreen">
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold text-mentoraGreen mb-1.5">Password</label>
+                <input type="password" name="password" required placeholder="••••••••" 
+                    class="w-full px-4 py-3 rounded-xl border border-mentoraBorder text-sm focus:outline-none focus:ring-2 focus:ring-mentoraGreen/20 focus:border-mentoraGreen">
+            </div>
+
+            <button type="submit" class="w-full py-3.5 bg-mentoraGreen text-white font-bold text-sm rounded-xl hover:bg-mentoraGreenLight transition-all shadow-md">
+                Create Account
+            </button>
+        </form>
+
+        <p class="text-center text-xs text-mentoraTextMuted pt-2">
+            Already have an account? <a href="{{ url_for('login') }}" class="font-bold text-mentoraGreen hover:underline">Sign In</a>
+        </p>
+    </div>
+
+</div>
+{% endblock %}

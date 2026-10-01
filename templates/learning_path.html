@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block title %}AI Learning Path Roadmap — Mentora AI{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+
+    <!-- Header Section -->
+    <div class="text-center space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-mentoraBadgeBg border border-mentoraBorder text-xs font-semibold text-mentoraGreen">
+            🗺️ Career Goal Roadmap Generator
+        </div>
+        <h1 class="font-serif text-4xl sm:text-5xl font-bold text-mentoraGreen leading-tight">
+            Generate Your AI Learning Path
+        </h1>
+        <p class="text-sm text-mentoraTextMuted max-w-lg mx-auto">
+            Enter any target career goal or AI topic, and Mentora will assemble an ordered step-by-step course roadmap with estimated completion hours.
+        </p>
+    </div>
+
+    <!-- Goal Input Form -->
+    <div class="bg-white border border-mentoraBorder rounded-3xl p-6 shadow-sm max-w-2xl mx-auto">
+        <form action="{{ url_for('learning_path') }}" method="GET" class="flex flex-col sm:flex-row items-center gap-3">
+            <input type="text" name="goal" value="{{ goal }}" placeholder="e.g. Become an ML Engineer, Build Chatbots, Master Computer Vision" required
+                class="w-full px-5 py-3.5 rounded-full border border-mentoraBorder text-sm focus:outline-none focus:ring-2 focus:ring-mentoraGreen/20 focus:border-mentoraGreen">
+            
+            <button type="submit" 
+                class="w-full sm:w-auto px-8 py-3.5 bg-mentoraGreen text-white font-bold text-sm rounded-full hover:bg-mentoraGreenLight transition-all shadow-md whitespace-nowrap">
+                Generate Path →
+            </button>
+        </form>
+
+        <!-- Suggested Goals -->
+        <div class="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs">
+            <span class="text-mentoraTextMuted font-medium">Try:</span>
+            <a href="{{ url_for('learning_path', goal='Become an ML Engineer') }}" class="text-mentoraGreen hover:underline">ML Engineer</a> •
+            <a href="{{ url_for('learning_path', goal='Build Generative AI Apps') }}" class="text-mentoraGreen hover:underline">Generative AI App Builder</a> •
+            <a href="{{ url_for('learning_path', goal='Master Prompt Engineering') }}" class="text-mentoraGreen hover:underline">Prompt Engineer</a> •
+            <a href="{{ url_for('learning_path', goal='LLM MLOps Specialist') }}" class="text-mentoraGreen hover:underline">MLOps Specialist</a>
+        </div>
+    </div>
+
+    <!-- Roadmap Output View -->
+    {% if roadmap and roadmap.steps %}
+        <div class="space-y-8 pt-4">
+            
+            <!-- Summary Header -->
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 p-6 bg-mentoraBadgeBg/80 border border-mentoraBorder rounded-2xl">
+                <div>
+                    <span class="text-[10px] uppercase font-bold tracking-widest text-mentoraAccent">CUSTOM ROADMAP</span>
+                    <h2 class="font-serif text-2xl font-bold text-mentoraGreen">
+                        Target Goal: "{{ roadmap.goal }}"
+                    </h2>
+                </div>
+                <div class="text-right">
+                    <span class="text-xs text-mentoraTextMuted font-medium block">Total Estimated Duration</span>
+                    <span class="font-serif text-2xl font-bold text-mentoraGreen">~{{ roadmap.total_estimated_hours }} Hours</span>
+                </div>
+            </div>
+
+            <!-- Steps Pipeline -->
+            <div class="relative space-y-6 before:absolute before:left-6 before:top-8 before:bottom-8 before:w-0.5 before:bg-mentoraBorder">
+                
+                {% for step in roadmap.steps %}
+                    <div class="relative pl-14 sm:pl-16">
+                        <!-- Step Circle Number -->
+                        <div class="absolute left-0 top-0 w-12 h-12 rounded-full bg-mentoraGreen text-white font-serif text-lg font-bold flex items-center justify-center shadow-md">
+                            {{ step.step_number }}
+                        </div>
+
+                        <!-- Step Card -->
+                        <div class="bg-white border border-mentoraBorder hover:border-mentoraGreen rounded-2xl p-6 space-y-4 shadow-sm transition-all">
+                            
+                            <!-- Phase Tag & Title -->
+                            <div class="flex items-center justify-between gap-4">
+                                <span class="px-3 py-1 rounded-md bg-mentoraBadgeBg text-mentoraGreen text-xs font-bold uppercase tracking-wider">
+                                    Phase {{ step.step_number }}: {{ step.phase }}
+                                </span>
+                                <span class="text-xs font-semibold text-mentoraTextMuted">
+                                    ⏱ ~{{ step.course.duration_hours }} hours
+                                </span>
+                            </div>
+
+                            <!-- Course Title & Platform -->
+                            <div>
+                                <a href="{{ url_for('course_detail', course_id=step.course.id) }}">
+                                    <h3 class="font-serif text-xl font-bold text-mentoraGreen hover:underline">
+                                        {{ step.course.title }}
+                                    </h3>
+                                </a>
+                                <p class="text-xs text-mentoraTextMuted mt-1">
+                                    Provider: <strong class="text-mentoraGreen">{{ step.course.platform }}</strong> • Level: <strong>{{ step.course.level }}</strong>
+                                </p>
+                            </div>
+
+                            <!-- Milestone Goal -->
+                            <div class="p-3 bg-gray-50 rounded-xl border border-gray-100 text-xs text-mentoraTextMuted">
+                                <strong class="text-mentoraGreen font-bold">🎯 Milestone:</strong> {{ step.milestone }}
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="pt-2 flex items-center justify-between text-xs">
+                                <span class="font-bold text-emerald-700">
+                                    {% if step.course.is_free %}FREE COURSE{% else %}${{ '%.0f' % step.course.price_usd }}{% endif %}
+                                </span>
+
+                                <div class="flex items-center gap-3">
+                                    <button onclick="toggleBookmark({{ step.course.id }}, this)" 
+                                        class="px-3 py-1.5 rounded-full border border-mentoraBorder text-xs font-semibold hover:bg-mentoraBadgeBg transition-all flex items-center gap-1">
+                                        🔖 Save
+                                    </button>
+                                    <a href="{{ url_for('course_detail', course_id=step.course.id) }}" class="font-bold text-mentoraGreen hover:underline">
+                                        View Course Details →
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}
