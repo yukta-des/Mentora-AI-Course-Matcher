@@ -1,8 +1,4 @@
 # Mentora — AI-Powered Course Recommendation Web App
-
-> **Find your way into AI.**  
-> Mentora is a modern, editorial AI course recommendation web app indexing 250+ curated courses from DeepLearning.AI, Stanford University, MIT, Google Cloud, fast.ai, Coursera, Udacity, and edX.
-
 ---
 
 ## ✨ Features
