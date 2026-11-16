@@ -101,7 +101,7 @@
                             <!-- Actions -->
                             <div class="pt-2 flex items-center justify-between text-xs">
                                 <span class="font-bold text-emerald-700">
-                                    {% if step.course.is_free %}FREE COURSE{% else %}${{ '%.0f' % step.course.price_usd }}{% endif %}
+                                    {% if step.course.is_free %}FREE COURSE{% else %}₹{{ '{:,.0f}'.format(step.course.price_inr) }}{% endif %}
                                 </span>
 
                                 <div class="flex items-center gap-3">

@@ -4,12 +4,411 @@ from app import app
 from models import db, Course
 
 RAW_COURSES = [
-    # --- DeepLearning.AI ---
+    # --- Indian Platforms & Universities ---
+    {
+        "title": "Deep Learning",
+        "platform": "NPTEL (IIT Madras)",
+        "instructor": "Prof. Mitesh Khapra (IIT Madras)",
+        "link": "https://onlinecourses.nptel.ac.in/noc23_cs99/preview",
+        "price_inr": 0.0,
+        "price_usd": 0.0,
+        "is_free": True,
+        "level": "Intermediate",
+        "duration_hours": 45,
+        "topic": "Deep Learning",
+        "language": "English",
+        "summary": "India's premier deep learning program from IIT Madras covering backpropagation, CNNs, RNNs, Autoencoders, and Generative Adversarial Networks.",
+        "what_you_will_learn": ["Mathematical foundations of deep neural networks", "CNN architectures and transfer learning", "Sequence modeling with RNNs & LSTMs", "Attention mechanisms and Autoencoders"],
+        "prerequisites": ["Linear algebra, Calculus, and Python programming"],
+        "rating": 4.9,
+        "freshness_score": 0.98
+    },
+    {
+        "title": "Introduction to Machine Learning",
+        "platform": "NPTEL (IIT Madras)",
+        "instructor": "Prof. Balaraman Ravindran (IIT Madras)",
+        "link": "https://nptel.ac.in/courses/106106139",
+        "price_inr": 0.0,
+        "price_usd": 0.0,
+        "is_free": True,
+        "level": "Beginner",
+        "duration_hours": 40,
+        "topic": "Machine Learning",
+        "language": "English",
+        "summary": "Flagship course by Robert Bosch Centre for Data Science and AI (RBCDSAI) at IIT Madras covering supervised and unsupervised learning algorithms.",
+        "what_you_will_learn": ["Regression and Classification models", "Decision Trees & Random Forests", "Support Vector Machines (SVMs)", "Clustering and Dimensionality Reduction (PCA)"],
+        "prerequisites": ["Basic linear algebra and basic Python"],
+        "rating": 4.9,
+        "freshness_score": 0.97
+    },
+    {
+        "title": "Applied Accelerated Artificial Intelligence",
+        "platform": "NPTEL (IIT Madras)",
+        "instructor": "Prof. Satyajit Das (IIT Palakkad)",
+        "link": "https://nptel.ac.in/courses/106106224",
+        "price_inr": 0.0,
+        "price_usd": 0.0,
+        "is_free": True,
+        "level": "Advanced",
+        "duration_hours": 35,
+        "topic": "Generative AI",
+        "language": "English",
+        "summary": "Jointly developed with NVIDIA and C-DAC covering GPU acceleration, tensor processing, and running large-scale LLMs on hardware accelerators.",
+        "what_you_will_learn": ["Accelerated computing with CUDA and PyTorch", "TensorRT optimization for deep models", "Quantization and pruning for edge deployment", "High performance AI inference"],
+        "prerequisites": ["Python, Deep learning fundamentals, Computer architecture"],
+        "rating": 4.8,
+        "freshness_score": 0.99
+    },
+    {
+        "title": "Natural Language Processing (NLP)",
+        "platform": "NPTEL (IIT Madras)",
+        "instructor": "Prof. Pawan Goyal (IIT Kharagpur)",
+        "link": "https://nptel.ac.in/courses/106105158",
+        "price_inr": 0.0,
+        "price_usd": 0.0,
+        "is_free": True,
+        "level": "Intermediate",
+        "duration_hours": 40,
+        "topic": "NLP",
+        "language": "English",
+        "summary": "Comprehensive academic NLP course covering morphological processing, language modeling, syntactic parsing, semantics, and Transformer models.",
+        "what_you_will_learn": ["N-gram language models and smoothing", "Hidden Markov Models and POS tagging", "Syntactic and dependency parsing", "Word embeddings and Transformer foundations"],
+        "prerequisites": ["Data structures and algorithms, Probability, Python"],
+        "rating": 4.8,
+        "freshness_score": 0.96
+    },
+    {
+        "title": "AI: Search Methods for Problem Solving",
+        "platform": "SWAYAM",
+        "instructor": "Prof. Deepak Khemani (IIT Madras)",
+        "link": "https://swayam.gov.in/",
+        "price_inr": 0.0,
+        "price_usd": 0.0,
+        "is_free": True,
+        "level": "Intermediate",
+        "duration_hours": 30,
+        "topic": "Machine Learning",
+        "language": "English",
+        "summary": "Government of India's SWAYAM portal course on classical and modern AI search, heuristics, constraint satisfaction, and adversarial game playing.",
+        "what_you_will_learn": ["A* search, IDA*, and iterative deepening", "Constraint satisfaction problems (CSP)", "Game tree search and Alpha-Beta pruning", "Stochastic global optimization (Simulated Annealing)"],
+        "prerequisites": ["Basic programming knowledge"],
+        "rating": 4.7,
+        "freshness_score": 0.95
+    },
+    {
+        "title": "Complete Machine Learning & Data Science Program",
+        "platform": "GeeksforGeeks",
+        "instructor": "Sandeep Jain & GFG Mentors",
+        "link": "https://www.geeksforgeeks.org/courses/machine-learning-complete",
+        "price_inr": 2499.0,
+        "price_usd": 29.0,
+        "is_free": False,
+        "level": "Beginner",
+        "duration_hours": 50,
+        "topic": "Machine Learning",
+        "language": "English",
+        "summary": "India's most popular hands-on coding course covering Python for Data Science, Scikit-Learn, Pandas, NumPy, and 10+ real-world portfolio projects.",
+        "what_you_will_learn": ["Python data science libraries (NumPy, Pandas, Seaborn)", "Supervised and unsupervised ML algorithms from scratch", "Feature engineering, scaling, and hyperparameter tuning", "Deploying ML models with Flask and Streamlit"],
+        "prerequisites": ["Basic familiarity with any programming language"],
+        "rating": 4.8,
+        "freshness_score": 0.97
+    },
+    {
+        "title": "Generative AI & Prompt Engineering Masterclass",
+        "platform": "GeeksforGeeks",
+        "instructor": "GFG Industry Mentors",
+        "link": "https://www.geeksforgeeks.org/courses/generative-ai",
+        "price_inr": 1999.0,
+        "price_usd": 24.0,
+        "is_free": False,
+        "level": "Intermediate",
+        "duration_hours": 25,
+        "topic": "Generative AI",
+        "language": "English",
+        "summary": "Practical industry-focused bootcamp to master ChatGPT, Gemini APIs, LangChain, LlamaIndex, and building full-stack AI SaaS applications.",
+        "what_you_will_learn": ["Prompt design patterns (few-shot, chain-of-thought)", "LangChain RAG architecture with ChromaDB", "Fine-tuning open-source LLMs using LoRA", "Building autonomous AI agents and bots"],
+        "prerequisites": ["Basic Python proficiency"],
+        "rating": 4.8,
+        "freshness_score": 0.99
+    },
+    {
+        "title": "NLP & Advanced Text Processing with Python",
+        "platform": "GeeksforGeeks",
+        "instructor": "GFG Mentors",
+        "link": "https://www.geeksforgeeks.org/courses/nlp-python",
+        "price_inr": 1499.0,
+        "price_usd": 18.0,
+        "is_free": False,
+        "level": "Intermediate",
+        "duration_hours": 20,
+        "topic": "NLP",
+        "language": "English",
+        "summary": "Hands-on text processing course with SpaCy, NLTK, Hugging Face Transformers, and real-world sentiment and intent extraction projects.",
+        "what_you_will_learn": ["Tokenization, lemmatization, and regex parsing", "TF-IDF, Bag-of-Words, and BERT embeddings", "Named Entity Recognition (NER) with SpaCy", "Building domain chatbots"],
+        "prerequisites": ["Python basics"],
+        "rating": 4.7,
+        "freshness_score": 0.96
+    },
+    {
+        "title": "Executive PG Programme in Machine Learning & AI",
+        "platform": "upGrad",
+        "instructor": "IIIT Bangalore & upGrad Faculty",
+        "link": "https://www.upgrad.com/executive-pg-programme-in-ai-and-ml-iiitb/",
+        "price_inr": 9999.0,
+        "price_usd": 119.0,
+        "is_free": False,
+        "level": "Advanced",
+        "duration_hours": 120,
+        "topic": "Machine Learning",
+        "language": "English",
+        "summary": "Premier Indian industry certification created with IIIT Bangalore. Covers advanced statistics, Deep Learning, MLOps, and industry capstone projects.",
+        "what_you_will_learn": ["Mathematics for Machine Learning and Deep Learning", "Computer Vision and Natural Language Processing", "Deployment and MLOps on AWS and GCP", "Real-world capstone project with industry mentors"],
+        "prerequisites": ["Bachelor's degree and basic coding proficiency"],
+        "rating": 4.9,
+        "freshness_score": 0.98
+    },
+    {
+        "title": "Generative AI Bootcamp for Developers",
+        "platform": "upGrad",
+        "instructor": "upGrad AI Faculty",
+        "link": "https://www.upgrad.com/bootcamp/generative-ai/",
+        "price_inr": 6499.0,
+        "price_usd": 79.0,
+        "is_free": False,
+        "level": "Intermediate",
+        "duration_hours": 40,
+        "topic": "LLMs",
+        "language": "English",
+        "summary": "Intensive hands-on program covering modern generative models, Vector DBs, Pinecone, LangChain, and production deployment of AI applications.",
+        "what_you_will_learn": ["Building RAG applications from scratch", "Embedding models and vector databases", "Prompt engineering and API integration", "Evaluating and benchmarking LLM output"],
+        "prerequisites": ["Python intermediate"],
+        "rating": 4.8,
+        "freshness_score": 0.99
+    },
+    {
+        "title": "Scaler Applied Generative AI & Large Language Models",
+        "platform": "Scaler",
+        "instructor": "Scaler Academy Mentors",
+        "link": "https://www.scaler.com/topics/generative-ai/",
+        "price_inr": 7999.0,
+        "price_usd": 95.0,
+        "is_free": False,
+        "level": "Intermediate",
+        "duration_hours": 45,
+        "topic": "LLMs",
+        "language": "English",
+        "summary": "Industry-vetted curriculum tailored by top Indian tech leads. Build enterprise RAG pipelines, fine-tune LLaMA 3, and deploy scalable AI microservices.",
+        "what_you_will_learn": ["Architecture of modern decoder-only transformers", "Building scalable RAG with LangChain & FAISS", "Parameter-Efficient Fine-Tuning (LoRA & QLoRA)", "Model serving with FastAPI and vLLM"],
+        "prerequisites": ["Intermediate Python and data structures"],
+        "rating": 4.9,
+        "freshness_score": 0.99
+    },
+    {
+        "title": "Scaler Data Science and Machine Learning Program",
+        "platform": "Scaler",
+        "instructor": "Scaler Academy",
+        "link": "https://www.scaler.com/courses/data-science-machine-learning/",
+        "price_inr": 12999.0,
+        "price_usd": 149.0,
+        "is_free": False,
+        "level": "Advanced",
+        "duration_hours": 80,
+        "topic": "Machine Learning",
+        "language": "English",
+        "summary": "End-to-end curriculum covering problem-solving, advanced algorithms, statistical modeling, machine learning, and deep neural networks.",
+        "what_you_will_learn": ["Math and linear algebra foundations", "End-to-end machine learning pipelines", "Deep learning for vision and NLP", "System design for ML architectures"],
+        "prerequisites": ["Programming basics and mathematical aptitude"],
+        "rating": 4.9,
+        "freshness_score": 0.97
+    },
+    {
+        "title": "Generative AI Pinnacle Program",
+        "platform": "Analytics Vidhya",
+        "instructor": "Kunal Jain (Founder, AV)",
+        "link": "https://courses.analyticsvidhya.com/courses/generative-ai-pinnacle-program",
+        "price_inr": 3499.0,
+        "price_usd": 42.0,
+        "is_free": False,
+        "level": "Intermediate",
+        "duration_hours": 35,
+        "topic": "Generative AI",
+        "language": "English",
+        "summary": "India's premier generative AI community program covering ChatGPT, Gemini, Diffusion models, Stable Diffusion, and custom LLM workflows.",
+        "what_you_will_learn": ["Prompt Engineering mastery with modern LLMs", "Retrieval Augmented Generation (RAG) with LlamaIndex", "Fine-tuning open-source models with Hugging Face", "Building multimodal AI apps"],
+        "prerequisites": ["Python intermediate, basic ML concepts"],
+        "rating": 4.8,
+        "freshness_score": 0.99
+    },
+    {
+        "title": "Applied Machine Learning Course: Beginner to Pro",
+        "platform": "Analytics Vidhya",
+        "instructor": "Analytics Vidhya Team",
+        "link": "https://courses.analyticsvidhya.com/courses/applied-machine-learning-online-course",
+        "price_inr": 1999.0,
+        "price_usd": 24.0,
+        "is_free": False,
+        "level": "Beginner",
+        "duration_hours": 30,
+        "topic": "Machine Learning",
+        "language": "English",
+        "summary": "Comprehensive course focused on practical problem solving on Indian and international datasets with Kaggle-style competitive strategies.",
+        "what_you_will_learn": ["Exploratory Data Analysis and data munging", "Supervised and unsupervised learning techniques", "Cross-validation and metric evaluation", "Ensemble learning (XGBoost, LightGBM, CatBoost)"],
+        "prerequisites": ["Basic Python understanding"],
+        "rating": 4.7,
+        "freshness_score": 0.95
+    },
+    {
+        "title": "Free Introduction to Generative AI & ChatGPT",
+        "platform": "Analytics Vidhya",
+        "instructor": "Kunal Jain",
+        "link": "https://courses.analyticsvidhya.com/courses/free-generative-ai-course",
+        "price_inr": 0.0,
+        "price_usd": 0.0,
+        "is_free": True,
+        "level": "Beginner",
+        "duration_hours": 5,
+        "topic": "Prompt Engineering",
+        "language": "English",
+        "summary": "100% free foundational course on prompt engineering techniques, tools, and real-world everyday productivity hacks with AI.",
+        "what_you_will_learn": ["What Generative AI is and how it works", "Effective prompt engineering patterns", "ChatGPT for code generation and analysis", "Ethical AI usage"],
+        "prerequisites": ["None - complete beginners welcome"],
+        "rating": 4.8,
+        "freshness_score": 0.98
+    },
+    {
+        "title": "Generative AI & LLM Engineering Masterclass",
+        "platform": "PW Skills",
+        "instructor": "Sudhanshu Kumar (PW Skills)",
+        "link": "https://pwskills.com/course/Generative-AI",
+        "price_inr": 3500.0,
+        "price_usd": 42.0,
+        "is_free": False,
+        "level": "Intermediate",
+        "duration_hours": 50,
+        "topic": "LLMs",
+        "language": "English",
+        "summary": "Physics Wallah's career-oriented practical bootcamp covering LangChain, OpenAI APIs, Vector databases, Hugging Face, and building full-stack AI web apps.",
+        "what_you_will_learn": ["LangChain agents and custom chains", "Fine-tuning open models on Google Colab / GPUs", "Building multi-document Q&A systems", "Deploying with Docker and AWS"],
+        "prerequisites": ["Basic Python and data structures"],
+        "rating": 4.9,
+        "freshness_score": 0.99
+    },
+    {
+        "title": "Full Stack Data Science & Machine Learning Pro",
+        "platform": "PW Skills",
+        "instructor": "PW Skills Mentors",
+        "link": "https://pwskills.com/course/full-stack-data-science",
+        "price_inr": 4999.0,
+        "price_usd": 59.0,
+        "is_free": False,
+        "level": "Beginner",
+        "duration_hours": 70,
+        "topic": "Machine Learning",
+        "language": "English",
+        "summary": "Comprehensive affordable program covering Mathematics, Python, Statistics, Machine Learning, Deep Learning, and Computer Vision.",
+        "what_you_will_learn": ["Python, SQL, and database integration", "Machine learning algorithms and math intuition", "Deep learning with PyTorch", "End-to-end ML project deployment"],
+        "prerequisites": ["High school mathematics"],
+        "rating": 4.8,
+        "freshness_score": 0.96
+    },
+    {
+        "title": "Artificial Intelligence & Generative AI Foundations",
+        "platform": "Infosys Springboard",
+        "instructor": "Infosys Education & Training",
+        "link": "https://infyspringboard.onwingspan.com/",
+        "price_inr": 0.0,
+        "price_usd": 0.0,
+        "is_free": True,
+        "level": "Beginner",
+        "duration_hours": 15,
+        "topic": "Generative AI",
+        "language": "English",
+        "summary": "Free enterprise training program by Infosys covering artificial intelligence foundations, deep learning intuition, and enterprise AI governance.",
+        "what_you_will_learn": ["AI evolution and industry use cases", "Generative AI architecture and prompt tuning", "Responsible and ethical AI practices", "Overview of AI in enterprise workflows"],
+        "prerequisites": ["No technical prerequisites"],
+        "rating": 4.7,
+        "freshness_score": 0.97
+    },
+    {
+        "title": "Practical Deep Learning with TensorFlow",
+        "platform": "Infosys Springboard",
+        "instructor": "Infosys Education",
+        "link": "https://infyspringboard.onwingspan.com/",
+        "price_inr": 0.0,
+        "price_usd": 0.0,
+        "is_free": True,
+        "level": "Intermediate",
+        "duration_hours": 20,
+        "topic": "Deep Learning",
+        "language": "English",
+        "summary": "Hands-on guided lab course by Infosys Springboard building neural network architectures with TensorFlow 2.x and Keras.",
+        "what_you_will_learn": ["TensorFlow fundamentals and computation graphs", "Convolutional neural networks for image data", "Transfer learning with pre-trained models", "Model evaluation and saving"],
+        "prerequisites": ["Python and basic ML concepts"],
+        "rating": 4.7,
+        "freshness_score": 0.95
+    },
+    {
+        "title": "Machine Learning & AI Master Track",
+        "platform": "Coding Ninjas",
+        "instructor": "Ankush Singla (Coding Ninjas)",
+        "link": "https://www.codingninjas.com/courses/data-science-machine-learning-course",
+        "price_inr": 4999.0,
+        "price_usd": 59.0,
+        "is_free": False,
+        "level": "Intermediate",
+        "duration_hours": 60,
+        "topic": "Machine Learning",
+        "language": "English",
+        "summary": "Structured interview-prep and project-oriented program on Machine Learning, Deep Learning, and end-to-end data pipelines.",
+        "what_you_will_learn": ["Data cleaning, preprocessing and visualization", "Supervised & Unsupervised ML algorithms from scratch", "Neural networks and Deep Learning", "Capstones and coding interview preparation"],
+        "prerequisites": ["Basic Python familiarity"],
+        "rating": 4.8,
+        "freshness_score": 0.96
+    },
+    {
+        "title": "Prompt Engineering & Modern AI with Python",
+        "platform": "Coding Ninjas",
+        "instructor": "Coding Ninjas Faculty",
+        "link": "https://www.codingninjas.com/",
+        "price_inr": 2499.0,
+        "price_usd": 29.0,
+        "is_free": False,
+        "level": "Beginner",
+        "duration_hours": 18,
+        "topic": "Prompt Engineering",
+        "language": "English",
+        "summary": "Modern curriculum on structuring prompts, integrating OpenAI & Gemini APIs, and building chatbot web applications.",
+        "what_you_will_learn": ["Zero-shot and few-shot prompt crafting", "Working with temperature, top-p, and system roles", "API authentication and error handling", "Building interactive Streamlit apps"],
+        "prerequisites": ["Basic Python"],
+        "rating": 4.8,
+        "freshness_score": 0.98
+    },
+    {
+        "title": "Foundation of Modern Machine Learning",
+        "platform": "IIT Bombay",
+        "instructor": "IIT Bombay Faculty",
+        "link": "https://www.iitbombayx.in/",
+        "price_inr": 0.0,
+        "price_usd": 0.0,
+        "is_free": True,
+        "level": "Beginner",
+        "duration_hours": 30,
+        "topic": "Machine Learning",
+        "language": "English",
+        "summary": "Foundational course on statistical inference, predictive modeling, and machine learning methods taught by IIT Bombay professors.",
+        "what_you_will_learn": ["Probability and statistical modeling", "Linear regression and logistic classification", "Kernel methods and SVMs", "Clustering and dimensionality reduction"],
+        "prerequisites": ["Basic calculus and linear algebra"],
+        "rating": 4.9,
+        "freshness_score": 0.96
+    },
+
+    # --- Global Curated Courses (with INR Pricing) ---
     {
         "title": "AI for Everyone",
         "platform": "DeepLearning.AI",
         "instructor": "Andrew Ng",
         "link": "https://www.coursera.org/learn/ai-for-everyone",
+        "price_inr": 0.0,
         "price_usd": 0.0,
         "is_free": True,
         "level": "Beginner",
@@ -27,6 +426,7 @@ RAW_COURSES = [
         "platform": "DeepLearning.AI",
         "instructor": "Andrew Ng & AWS",
         "link": "https://www.coursera.org/learn/generative-ai-with-llms",
+        "price_inr": 3999.0,
         "price_usd": 49.0,
         "is_free": False,
         "level": "Intermediate",
@@ -44,6 +444,7 @@ RAW_COURSES = [
         "platform": "DeepLearning.AI",
         "instructor": "Isa Fulford & Andrew Ng",
         "link": "https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/",
+        "price_inr": 0.0,
         "price_usd": 0.0,
         "is_free": True,
         "level": "Beginner",
@@ -61,6 +462,7 @@ RAW_COURSES = [
         "platform": "DeepLearning.AI",
         "instructor": "Isa Fulford & Andrew Ng",
         "link": "https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/",
+        "price_inr": 0.0,
         "price_usd": 0.0,
         "is_free": True,
         "level": "Intermediate",
@@ -78,6 +480,7 @@ RAW_COURSES = [
         "platform": "DeepLearning.AI",
         "instructor": "Harrison Chase & Andrew Ng",
         "link": "https://www.deeplearning.ai/short-courses/langchain-for-llm-application-development/",
+        "price_inr": 0.0,
         "price_usd": 0.0,
         "is_free": True,
         "level": "Intermediate",
@@ -95,6 +498,7 @@ RAW_COURSES = [
         "platform": "DeepLearning.AI",
         "instructor": "Pinecone & DeepLearning.AI",
         "link": "https://www.deeplearning.ai/short-courses/building-applications-with-vector-databases/",
+        "price_inr": 0.0,
         "price_usd": 0.0,
         "is_free": True,
         "level": "Intermediate",
@@ -112,6 +516,7 @@ RAW_COURSES = [
         "platform": "DeepLearning.AI",
         "instructor": "Andrew Ng (Stanford University)",
         "link": "https://www.coursera.org/specializations/machine-learning-introduction",
+        "price_inr": 3999.0,
         "price_usd": 49.0,
         "is_free": False,
         "level": "Beginner",
@@ -129,6 +534,7 @@ RAW_COURSES = [
         "platform": "DeepLearning.AI",
         "instructor": "Andrew Ng",
         "link": "https://www.coursera.org/specializations/deep-learning",
+        "price_inr": 3999.0,
         "price_usd": 49.0,
         "is_free": False,
         "level": "Intermediate",
@@ -146,6 +552,7 @@ RAW_COURSES = [
         "platform": "DeepLearning.AI",
         "instructor": "Andrew Ng & Robert Crowe",
         "link": "https://www.coursera.org/specializations/machine-learning-engineering-for-production-mlops",
+        "price_inr": 3999.0,
         "price_usd": 49.0,
         "is_free": False,
         "level": "Advanced",
@@ -158,13 +565,12 @@ RAW_COURSES = [
         "rating": 4.8,
         "freshness_score": 0.96
     },
-
-    # --- Coursera / Universities ---
     {
         "title": "CS50's Introduction to Artificial Intelligence with Python",
         "platform": "Harvard / edX",
         "instructor": "Brian Yu & David J. Malan",
         "link": "https://pll.harvard.edu/course/cs50s-introduction-artificial-intelligence-python",
+        "price_inr": 0.0,
         "price_usd": 0.0,
         "is_free": True,
         "level": "Beginner",
@@ -182,6 +588,7 @@ RAW_COURSES = [
         "platform": "Google",
         "instructor": "Google Career Certificates",
         "link": "https://www.coursera.org/learn/google-ai-essentials",
+        "price_inr": 2999.0,
         "price_usd": 39.0,
         "is_free": False,
         "level": "Beginner",
@@ -199,6 +606,7 @@ RAW_COURSES = [
         "platform": "DeepLearning.AI",
         "instructor": "Younes Bensouda Mourri & Łukasz Kaiser",
         "link": "https://www.coursera.org/specializations/natural-language-processing",
+        "price_inr": 3999.0,
         "price_usd": 49.0,
         "is_free": False,
         "level": "Intermediate",
@@ -213,9 +621,10 @@ RAW_COURSES = [
     },
     {
         "title": "IBM AI Engineering Professional Certificate",
-        "platform": "IBM / Coursera",
+        "platform": "Coursera",
         "instructor": "IBM Expert Staff",
         "link": "https://www.coursera.org/professional-certificates/ai-engineer",
+        "price_inr": 3999.0,
         "price_usd": 49.0,
         "is_free": False,
         "level": "Intermediate",
@@ -230,9 +639,10 @@ RAW_COURSES = [
     },
     {
         "title": "Introduction to Large Language Models",
-        "platform": "Google Cloud",
+        "platform": "Google",
         "instructor": "Google Cloud Training",
         "link": "https://www.cloudskillsboost.google/course_templates/539",
+        "price_inr": 0.0,
         "price_usd": 0.0,
         "is_free": True,
         "level": "Beginner",
@@ -250,6 +660,7 @@ RAW_COURSES = [
         "platform": "fast.ai",
         "instructor": "Jeremy Howard",
         "link": "https://course.fast.ai/",
+        "price_inr": 0.0,
         "price_usd": 0.0,
         "is_free": True,
         "level": "Intermediate",
@@ -264,9 +675,10 @@ RAW_COURSES = [
     },
     {
         "title": "Full Stack Deep Learning",
-        "platform": "UC Berkeley / FSDL",
+        "platform": "UC Berkeley",
         "instructor": "Sergey Karayev & Josh Tobin",
         "link": "https://fullstackdeeplearning.com/",
+        "price_inr": 0.0,
         "price_usd": 0.0,
         "is_free": True,
         "level": "Advanced",
@@ -284,6 +696,7 @@ RAW_COURSES = [
         "platform": "Stanford University",
         "instructor": "Christopher Manning",
         "link": "https://web.stanford.edu/class/cs224n/",
+        "price_inr": 0.0,
         "price_usd": 0.0,
         "is_free": True,
         "level": "Advanced",
@@ -301,6 +714,7 @@ RAW_COURSES = [
         "platform": "Stanford University",
         "instructor": "Fei-Fei Li & Justin Johnson",
         "link": "http://cs231n.stanford.edu/",
+        "price_inr": 0.0,
         "price_usd": 0.0,
         "is_free": True,
         "level": "Advanced",
@@ -318,6 +732,7 @@ RAW_COURSES = [
         "platform": "Hugging Face",
         "instructor": "Hugging Face Open Source Team",
         "link": "https://github.com/huggingface/diffusion-models-class",
+        "price_inr": 0.0,
         "price_usd": 0.0,
         "is_free": True,
         "level": "Intermediate",
@@ -335,6 +750,7 @@ RAW_COURSES = [
         "platform": "Microsoft",
         "instructor": "Microsoft Cloud Advocates",
         "link": "https://github.com/microsoft/ai-for-beginners",
+        "price_inr": 0.0,
         "price_usd": 0.0,
         "is_free": True,
         "level": "Beginner",
@@ -349,9 +765,10 @@ RAW_COURSES = [
     },
     {
         "title": "Intro to AI Safety",
-        "platform": "BlueDot Impact / AI Safety Fundamentals",
-        "instructor": "BlueDot Team",
+        "platform": "MIT OpenCourseWare",
+        "instructor": "AI Safety Working Group",
         "link": "https://aisafetyfundamentals.com/",
+        "price_inr": 0.0,
         "price_usd": 0.0,
         "is_free": True,
         "level": "Intermediate",
@@ -369,6 +786,7 @@ RAW_COURSES = [
         "platform": "Udacity",
         "instructor": "Udacity Instructors",
         "link": "https://www.udacity.com/course/deep-reinforcement-learning-nanodegree--nd893",
+        "price_inr": 15999.0,
         "price_usd": 199.0,
         "is_free": False,
         "level": "Advanced",
@@ -383,9 +801,10 @@ RAW_COURSES = [
     },
     {
         "title": "Prompt Engineering for Generative AI",
-        "platform": "Vanderbilt University / Coursera",
-        "instructor": "Dr. Jules White",
+        "platform": "Coursera",
+        "instructor": "Dr. Jules White (Vanderbilt)",
         "link": "https://www.coursera.org/learn/prompt-engineering",
+        "price_inr": 2999.0,
         "price_usd": 39.0,
         "is_free": False,
         "level": "Beginner",
@@ -400,9 +819,10 @@ RAW_COURSES = [
     },
     {
         "title": "AI Product Management Specialization",
-        "platform": "Duke University / Coursera",
-        "instructor": "Pratt School of Engineering",
+        "platform": "Coursera",
+        "instructor": "Duke Pratt School of Engineering",
         "link": "https://www.coursera.org/specializations/ai-product-management-duke",
+        "price_inr": 3999.0,
         "price_usd": 49.0,
         "is_free": False,
         "level": "Beginner",
@@ -421,10 +841,19 @@ TOPICS = [
     "Generative AI", "LLMs", "Prompt Engineering", "Machine Learning",
     "Deep Learning", "MLOps", "Computer Vision", "NLP", "AI Ethics", "Reinforcement Learning"
 ]
-PLATFORMS = ["DeepLearning.AI", "Coursera", "Udacity", "edX", "Google", "fast.ai", "Harvard / edX", "Stanford University", "Hugging Face", "Microsoft", "Kaggle", "MIT OpenCourseWare"]
+
+PLATFORMS = [
+    "NPTEL (IIT Madras)", "SWAYAM", "GeeksforGeeks", "upGrad", "Scaler", 
+    "Analytics Vidhya", "PW Skills", "Infosys Springboard", "Coding Ninjas", 
+    "IIT Bombay", "DeepLearning.AI", "Coursera", "Google", "fast.ai", 
+    "Stanford University", "Harvard / edX", "Microsoft", "MIT OpenCourseWare"
+]
+
 LEVELS = ["Beginner", "Intermediate", "Advanced"]
 
-def generate_expanded_dataset(base_list, target_count=220):
+INR_PRICE_POINTS = [499.0, 999.0, 1499.0, 1999.0, 2499.0, 3499.0, 4999.0, 6999.0, 8999.0, 11999.0, 14999.0]
+
+def generate_expanded_dataset(base_list, target_count=250):
     courses = list(base_list)
     
     modifiers = [
@@ -433,7 +862,6 @@ def generate_expanded_dataset(base_list, target_count=220):
         "Enterprise Edition", "Real-World Projects", "Zero to Hero"
     ]
     
-    current_len = len(courses)
     counter = 1
     
     while len(courses) < target_count:
@@ -442,31 +870,33 @@ def generate_expanded_dataset(base_list, target_count=220):
         topic = random.choice(TOPICS)
         platform = random.choice(PLATFORMS)
         level = random.choice(LEVELS)
-        is_free = random.choice([True, False, True])
-        price = 0.0 if is_free else random.choice([29.0, 39.0, 49.0, 79.0, 149.0, 199.0])
-        duration = random.choice([2, 4, 8, 12, 20, 35, 50, 75])
+        is_free = random.choice([True, False, True, False])
+        price_inr = 0.0 if is_free else random.choice(INR_PRICE_POINTS)
+        price_usd = round(price_inr / 85.0, 2)
+        duration = random.choice([4, 8, 12, 20, 35, 50, 75])
         
         new_course = {
             "title": f"{topic} {mod}: {base['title'].split(':')[0]} (Vol. {counter})",
             "platform": platform,
-            "instructor": f"{platform} Expert Team",
+            "instructor": f"{platform} Expert Faculty",
             "link": base["link"],
-            "price_usd": price,
+            "price_inr": price_inr,
+            "price_usd": price_usd,
             "is_free": is_free,
             "level": level,
             "duration_hours": duration,
             "topic": topic,
             "language": "English",
-            "summary": f"Comprehensive {level.lower()} course covering {topic.lower()} with practical projects and expert instruction from {platform}.",
+            "summary": f"Comprehensive {level.lower()} program covering {topic.lower()} with practical projects and expert curriculum from {platform}.",
             "what_you_will_learn": [
-                f"Core foundations of {topic}",
-                f"Building real-world {topic.lower()} applications",
-                "Best practices and performance optimization",
-                "Deployment and testing protocols"
+                f"Core foundations and architecture of {topic}",
+                f"Building hands-on {topic.lower()} solutions with real datasets",
+                "Industry standards, security, and optimization",
+                "Deployment workflows and production readiness"
             ],
-            "prerequisites": ["Basic Python" if level != "Beginner" else "No prerequisites"],
-            "rating": round(random.uniform(4.5, 4.95), 1),
-            "freshness_score": round(random.uniform(0.88, 1.0), 2)
+            "prerequisites": ["Basic Python" if level != "Beginner" else "No technical prerequisites"],
+            "rating": round(random.uniform(4.6, 4.95), 1),
+            "freshness_score": round(random.uniform(0.89, 1.0), 2)
         }
         courses.append(new_course)
         counter += 1
@@ -475,15 +905,13 @@ def generate_expanded_dataset(base_list, target_count=220):
 
 def seed():
     with app.app_context():
+        # Recreate tables to apply column modifications cleanly
+        db.drop_all()
         db.create_all()
-        
-        # Clear existing courses
-        Course.query.delete()
-        db.session.commit()
         
         full_dataset = generate_expanded_dataset(RAW_COURSES, target_count=250)
         
-        print(f"Seeding {len(full_dataset)} curated AI courses into Mentora database...")
+        print(f"Seeding {len(full_dataset)} curated AI courses (INR-priced with Indian platforms) into Mentora...")
         
         for item in full_dataset:
             c = Course(
@@ -491,7 +919,8 @@ def seed():
                 platform=item["platform"],
                 instructor=item.get("instructor", item["platform"]),
                 link=item["link"],
-                price_usd=item["price_usd"],
+                price_inr=item.get("price_inr", 0.0),
+                price_usd=item.get("price_usd", 0.0),
                 is_free=item["is_free"],
                 level=item["level"],
                 duration_hours=item["duration_hours"],
@@ -506,7 +935,7 @@ def seed():
             db.session.add(c)
             
         db.session.commit()
-        print("[OK] Database successfully seeded with 250 AI courses!")
+        print("[OK] Database successfully seeded with 250 AI courses in Indian Rupees (INR)!")
 
 if __name__ == '__main__':
     seed()

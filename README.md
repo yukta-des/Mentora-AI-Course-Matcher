@@ -9,7 +9,7 @@
   - **Topic**: LLMs, Generative AI, Computer Vision, MLOps, NLP, Prompt Engineering, Machine Learning.
   - **Level**: Beginner, Intermediate, Advanced.
   - **Price**: Free vs. Paid.
-  - **Platform**: Coursera, DeepLearning.AI, Udacity, fast.ai, Google, Stanford, MIT, Hugging Face, Microsoft.
+  - **Platform**: NPTEL (IITs), SWAYAM, GeeksforGeeks, upGrad, Scaler, Analytics Vidhya, PW Skills, Infosys Springboard, Coding Ninjas, IIT Bombay, Coursera, DeepLearning.AI, Stanford, Google.
   - **Duration**: Short (<5h), Medium (5-20h), Comprehensive (>20h).
 - **Course Detail View (`/course/<id>`)**: In-depth breakdown with prerequisites, syllabus bullet points, and direct official platform links.
 - **Personal Saved Bookmarks (`/bookmarks`)**: One-click real-time AJAX bookmark toggling.

@@ -30,7 +30,7 @@ def chat_with_advisor(user_message, conversation_history, courses_catalog):
             "level": c.level,
             "topic": c.topic,
             "is_free": c.is_free,
-            "price_usd": c.price_usd,
+            "price_inr": c.price_inr,
             "duration_hours": c.duration_hours,
             "summary": c.summary
         })
@@ -65,7 +65,7 @@ Guidelines:
         fallback_text = f"🤖 **Mentora Advisor Recommendation**:\n\nBased on your query: *\"{user_message}\"*, here is your custom recommendation:\n\n"
         for idx, course in enumerate(matched_courses, 1):
             fallback_text += f"**Step {idx}: {course.title}** ({course.platform})\n"
-            fallback_text += f"• **Level**: {course.level} | **Price**: {'FREE' if course.is_free else f'${course.price_usd}'} | **Duration**: ~{course.duration_hours}h\n"
+            fallback_text += f"• **Level**: {course.level} | **Price**: {'FREE' if course.is_free else f'₹{int(course.price_inr):,}'} | **Duration**: ~{course.duration_hours}h\n"
             fallback_text += f"• **Why this fits**: Matches your target skill set in {course.topic}.\n\n"
 
         return {

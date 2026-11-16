@@ -32,6 +32,7 @@ class Course(db.Model):
     platform = db.Column(db.String(100), nullable=False) # e.g. Coursera, DeepLearning.AI, Udacity, edX, fast.ai, Google
     instructor = db.Column(db.String(100), nullable=True) # e.g. Andrew Ng, Stanford University
     link = db.Column(db.Text, nullable=False)
+    price_inr = db.Column(db.Float, default=0.0)
     price_usd = db.Column(db.Float, default=0.0)
     is_free = db.Column(db.Boolean, default=True)
     level = db.Column(db.String(50), nullable=False) # Beginner, Intermediate, Advanced
@@ -74,6 +75,12 @@ class Course(db.Model):
     def prerequisites(self, value):
         self.prerequisites_json = json.dumps(value)
 
+    @property
+    def formatted_price(self):
+        if self.is_free or not self.price_inr:
+            return "FREE"
+        return f"₹{int(self.price_inr):,}"
+
     def to_dict(self, user_bookmarked=False):
         return {
             'id': self.id,
@@ -81,7 +88,9 @@ class Course(db.Model):
             'platform': self.platform,
             'instructor': self.instructor or self.platform,
             'link': self.link,
+            'price_inr': self.price_inr,
             'price_usd': self.price_usd,
+            'formatted_price': self.formatted_price,
             'is_free': self.is_free,
             'level': self.level,
             'duration_hours': self.duration_hours,

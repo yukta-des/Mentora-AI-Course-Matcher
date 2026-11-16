@@ -40,6 +40,9 @@ def main():
     print("Press CTRL+C to stop the server.")
     print("=" * 60 + "\n")
 
+    from flask import cli
+    cli.show_server_banner = lambda *args: None
+
     from app import app
     app.run(debug=True, host='127.0.0.1', port=5000, use_reloader=False)
 

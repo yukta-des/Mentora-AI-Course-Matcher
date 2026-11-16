@@ -17,7 +17,7 @@
                 Find your way<br><span class="italic font-normal">into AI.</span>
             </h1>
             <p class="text-mentoraTextMuted text-base sm:text-lg max-w-xl font-normal leading-relaxed">
-                Discover over 250+ top artificial intelligence, machine learning, and LLM courses curated from Andrew Ng, DeepLearning.AI, Stanford, MIT, Google, and fast.ai.
+                Discover over 250+ top artificial intelligence, machine learning, and LLM courses curated from NPTEL (IITs), GeeksforGeeks, upGrad, Analytics Vidhya, DeepLearning.AI, Stanford, and Google.
             </p>
         </div>
 
@@ -129,7 +129,7 @@
                                     </span>
                                 {% else %}
                                     <span class="px-2 py-0.5 rounded-md bg-amber-50 text-amber-800 border border-amber-200 font-bold">
-                                        ${{ '%.0f' % course.price_usd }}
+                                        ₹{{ '{:,.0f}'.format(course.price_inr) }}
                                     </span>
                                 {% endif %}
                             </div>

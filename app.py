@@ -1,8 +1,11 @@
 import os
-from flask import Flask, render_template, request, jsonify, redirect, url_for, flash
+from flask import Flask, render_template, request, jsonify, redirect, url_for, flash, cli
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+
+# Suppress development server banner warning
+cli.show_server_banner = lambda *args: None
 
 from config import Config
 from models import db, User, Course, Bookmark
