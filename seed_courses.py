@@ -2,7 +2,6 @@ import random
 import json
 from app import app
 from models import db, Course
-
 RAW_COURSES = [
     # --- Indian Platforms & Universities ---
     {
