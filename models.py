@@ -22,7 +22,6 @@ class User(UserMixin, db.Model):
             'name': self.name
         }
 
-
 class Course(db.Model):
     __tablename__ = 'courses'
 
